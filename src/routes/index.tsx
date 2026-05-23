@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/layout/AppShell";
-import { MapView } from "@/components/map/MapView";
+import { MapClient } from "@/components/map/MapClient";
 import { MapLegend } from "@/components/map/MapLegend";
 import { BasemapSwitcher } from "@/components/map/BasemapSwitcher";
 import { StatsCards } from "@/components/stats/StatsCards";
@@ -22,7 +22,7 @@ function Index() {
     <AppShell>
       <div className="flex-1 flex flex-col gap-3 min-h-0">
         <div className="relative flex-1 min-h-[420px] rounded-2xl overflow-hidden panel">
-          <MapView />
+          <MapClient />
           <div className="absolute top-3 left-3 z-[400]">
             <BasemapSwitcher />
           </div>
