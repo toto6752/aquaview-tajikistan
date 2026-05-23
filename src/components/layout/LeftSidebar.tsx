@@ -1,5 +1,5 @@
 import {
-  Drop, Snowflake, Faucet, Warning, Lightning,
+  Drop, Snowflake, DropSimple, Warning, Lightning,
   Waves, UsersThree, Plant, Tree, ArrowsClockwise, StackSimple,
 } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 const items: { key: LayerKey; label: string; Icon: typeof Drop; color: string }[] = [
   { key: "rivers", label: "Rivers & Streams", Icon: Waves, color: "text-river" },
   { key: "glaciers", label: "Glaciers", Icon: Snowflake, color: "text-glacier" },
-  { key: "water", label: "Clean Water Access", Icon: Faucet, color: "text-info" },
+  { key: "water", label: "Clean Water Access", Icon: DropSimple, color: "text-info" },
   { key: "risk", label: "Climate Risk Zones", Icon: Warning, color: "text-destructive" },
   { key: "hydro", label: "Hydropower", Icon: Lightning, color: "text-hydro" },
   { key: "reservoirs", label: "Reservoirs", Icon: Drop, color: "text-primary" },
