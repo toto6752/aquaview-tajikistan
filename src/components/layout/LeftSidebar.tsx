@@ -5,21 +5,23 @@ import {
 import { motion } from "framer-motion";
 import { useLayers, LayerKey } from "./LayerContext";
 import { Switch } from "@/components/ui/switch";
+import { useI18n } from "@/lib/i18n";
 
-const items: { key: LayerKey; label: string; Icon: typeof Drop; color: string }[] = [
-  { key: "rivers", label: "Rivers & Streams", Icon: Waves, color: "text-river" },
-  { key: "glaciers", label: "Glaciers", Icon: Snowflake, color: "text-glacier" },
-  { key: "water", label: "Clean Water Access", Icon: DropSimple, color: "text-info" },
-  { key: "risk", label: "Climate Risk Zones", Icon: Warning, color: "text-destructive" },
-  { key: "hydro", label: "Hydropower", Icon: Lightning, color: "text-hydro" },
-  { key: "reservoirs", label: "Reservoirs", Icon: Drop, color: "text-primary" },
-  { key: "population", label: "Population Density", Icon: UsersThree, color: "text-warning" },
-  { key: "agriculture", label: "Agricultural Zones", Icon: Plant, color: "text-success" },
-  { key: "protected", label: "Protected Areas", Icon: Tree, color: "text-success" },
+const items: { key: LayerKey; tKey: string; Icon: typeof Drop; color: string }[] = [
+  { key: "rivers", tKey: "layers.rivers", Icon: Waves, color: "text-river" },
+  { key: "glaciers", tKey: "layers.glaciers", Icon: Snowflake, color: "text-glacier" },
+  { key: "water", tKey: "layers.water", Icon: DropSimple, color: "text-info" },
+  { key: "risk", tKey: "layers.risk", Icon: Warning, color: "text-destructive" },
+  { key: "hydro", tKey: "layers.hydro", Icon: Lightning, color: "text-hydro" },
+  { key: "reservoirs", tKey: "layers.reservoirs", Icon: Drop, color: "text-primary" },
+  { key: "population", tKey: "layers.population", Icon: UsersThree, color: "text-warning" },
+  { key: "agriculture", tKey: "layers.agriculture", Icon: Plant, color: "text-success" },
+  { key: "protected", tKey: "layers.protected", Icon: Tree, color: "text-success" },
 ];
 
 export function LeftSidebar() {
   const { layers, toggle } = useLayers();
+  const { t } = useI18n();
   const active = items.filter((i) => layers[i.key]).length;
 
   return (
@@ -27,7 +29,7 @@ export function LeftSidebar() {
       <div className="flex items-center justify-between px-4 py-3.5 border-b border-border">
         <div className="flex items-center gap-2">
           <StackSimple size={17} weight="duotone" className="text-primary" />
-          <h2 className="font-semibold text-[14px] text-foreground">Map Layers</h2>
+          <h2 className="font-semibold text-[14px] text-foreground">{t("layers.title")}</h2>
         </div>
         <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-primary-soft text-primary">
           {active}/{items.length}
@@ -50,7 +52,7 @@ export function LeftSidebar() {
               <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-card border border-border ${it.color}`}>
                 <it.Icon size={16} weight="duotone" />
               </div>
-              <span className="flex-1 text-[13px] font-medium text-foreground">{it.label}</span>
+              <span className="flex-1 text-[13px] font-medium text-foreground">{t(it.tKey)}</span>
               <Switch checked={on} onCheckedChange={() => toggle(it.key)} />
             </motion.label>
           );
@@ -63,10 +65,8 @@ export function LeftSidebar() {
             <ArrowsClockwise size={15} weight="bold" className="text-success" />
           </div>
           <div className="min-w-0">
-            <div className="text-[12px] font-semibold text-foreground">Data Update</div>
-            <div className="text-[11px] text-muted-foreground leading-snug">
-              All environmental data updated 2 hours ago
-            </div>
+            <div className="text-[12px] font-semibold text-foreground">{t("layers.update")}</div>
+            <div className="text-[11px] text-muted-foreground leading-snug">{t("layers.updateNote")}</div>
           </div>
         </div>
       </div>

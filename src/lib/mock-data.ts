@@ -120,11 +120,11 @@ export const protectedAreas: [number, number][][] = [
 ];
 
 export const stats = [
-  { id: "water", label: "Clean Water Access", value: 74, suffix: "%", delta: "+4.2%", trend: "up" as const },
-  { id: "glacier", label: "Glacier Area", value: 8030, suffix: " km²", delta: "-1.1%", trend: "down" as const },
-  { id: "risk", label: "Risk Districts", value: 18, suffix: "", delta: "No change", trend: "flat" as const },
-  { id: "hydro", label: "Hydro Capacity", value: 9.1, suffix: " GW", delta: "+0.3 GW", trend: "up" as const, decimals: 1 },
-  { id: "pop", label: "Population", value: 10.1, suffix: "M", delta: "+1.2%", trend: "up" as const, decimals: 1 },
+  { id: "water", labelKey: "stats.water", value: 55.3, suffix: "%", delta: "+0.03%/yr", trend: "up" as const, decimals: 1, source: "World Bank 2022" },
+  { id: "glacier", labelKey: "stats.glacier", value: 8476, suffix: " km²", delta: "-1.1%/yr", trend: "down" as const, source: "TajNCID / RGI 7.0" },
+  { id: "risk", labelKey: "stats.risk", value: 18, suffix: "", delta: "500–600/yr", trend: "flat" as const, source: "UNEP 2025" },
+  { id: "hydro", labelKey: "stats.hydro", value: 5.9, suffix: " GW", delta: "+Rogun", trend: "up" as const, decimals: 1, source: "MEWR Tajikistan" },
+  { id: "pop", labelKey: "stats.pop", value: 10.1, suffix: "M", delta: "+1.2%", trend: "up" as const, decimals: 1, source: "World Bank 2024" },
 ];
 
 export const aiKnowledge: { match: RegExp; answer: string }[] = [

@@ -1,7 +1,8 @@
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect } from "react";
-import { Drop, Snowflake, Warning, Lightning, UsersThree, ArrowUp, ArrowDown, Minus } from "@phosphor-icons/react";
+import { Drop, Snowflake, Warning, Lightning, UsersThree, ArrowUp, ArrowDown, Minus, Info } from "@phosphor-icons/react";
 import { stats } from "@/lib/mock-data";
+import { useI18n } from "@/lib/i18n";
 
 const icons = {
   water: { Icon: Drop, color: "text-info", bg: "bg-info/10" },
@@ -24,8 +25,10 @@ function Counter({ value, decimals = 0 }: { value: number; decimals?: number }) 
 }
 
 export function StatsCards() {
+  const { t } = useI18n();
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+    <div className="space-y-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
       {stats.map((s, i) => {
         const meta = icons[s.id as keyof typeof icons];
         const TrendIcon = s.trend === "up" ? ArrowUp : s.trend === "down" ? ArrowDown : Minus;
@@ -38,7 +41,8 @@ export function StatsCards() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
             whileHover={{ y: -3 }}
-            className="panel p-3.5 group cursor-default"
+            className="panel p-3.5 group cursor-default relative"
+            title={`${s.source ?? ""}`}
           >
             <div className="flex items-start justify-between mb-2">
               <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${meta.bg} ${meta.color}`}>
@@ -49,14 +53,23 @@ export function StatsCards() {
                 {s.delta}
               </div>
             </div>
-            <div className="text-[11px] font-medium text-muted-foreground">{s.label}</div>
+            <div className="text-[11px] font-medium text-muted-foreground">{t((s as { labelKey: string }).labelKey)}</div>
             <div className="text-[22px] font-bold text-foreground tracking-tight leading-tight mt-0.5">
               <Counter value={s.value} decimals={(s as { decimals?: number }).decimals ?? 0} />
               <span className="text-[14px] font-semibold text-muted-foreground">{s.suffix}</span>
             </div>
+            {s.source && (
+              <div className="text-[10px] text-muted-foreground/80 mt-1 truncate">{s.source}</div>
+            )}
           </motion.div>
         );
       })}
+      </div>
+      <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground px-1">
+        <Info size={11} weight="duotone" />
+        <span className="font-semibold">{t("stats.sources")}:</span>
+        <span>{t("stats.sourcesNote")}</span>
+      </div>
     </div>
   );
 }
